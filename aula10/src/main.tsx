@@ -6,12 +6,15 @@ import Home from './routes/Home/index.tsx';
 import NotFound from './routes/NotFound/index.tsx';
 import Usuarios from './routes/Usuarios/index.tsx';
 import Produtos from './routes/Produtos/index.tsx';
+import EditarProdutos from './routes/EditarProdutos/index.tsx';
 
 const routes = createBrowserRouter([
   {path:"/",element:<App/> , errorElement:<NotFound/>, children:[
     {path:"/",element:<Home/>},
     {path:"/users",element:<Usuarios/>},
     {path:"/produtos",element:<Produtos/>},
+    {path:"/editar/produtos/:id",element:<EditarProdutos/>},
+
   ]}
 ]);
 
