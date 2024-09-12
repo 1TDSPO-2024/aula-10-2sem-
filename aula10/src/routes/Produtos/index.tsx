@@ -1,16 +1,40 @@
+import { useEffect, useState } from "react";
+import { TipoProduto } from "../../types";
+import { MinhaTabela } from "../../style/styled";
+import { Link } from "react-router-dom";
 
 export default function Produtos(){
+    
+    localStorage.getItem('lista')
+    
+    const [produtos, setProdutos] = useState<TipoProduto[]>([{
+        id: 0,
+        nome: '',
+        preco:0 
+    }]);
 
-    const listaDeProdutos = [
-        {id: 1, nome: 'Camiseta', preco: 19.99},
-        {id: 2, nome: 'Calça', preco: 39.99},
-        {id: 3, nome: 'Tênis', preco: 99.99},
-    ];
+    useEffect(() => {
+
+        const listaDeProdutos:TipoProduto[] = [
+            {id: 1, nome: 'Camiseta', preco: 19.99},
+            {id: 2, nome: 'Calça', preco: 39.99},
+            {id: 3, nome: 'Tênis', preco: 99.99},
+        ];
+        
+        if(!localStorage.getItem('lista')){
+            localStorage.setItem('lista', JSON.stringify(listaDeProdutos));
+        }
+
+         const listaProdutosString = localStorage.getItem('lista') ||  '[]';
+         const lista = JSON.parse(listaProdutosString);
+         setProdutos(lista);
+    }, [])
+
 
     return (
         <div>
             <h1>Produtos</h1>
-            <table>
+            <MinhaTabela>
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -19,20 +43,20 @@ export default function Produtos(){
                     </tr>
                 </thead>
                 <tbody>
-                    {listaDeProdutos.map((p)=>(
+                    {produtos.map((p)=>(
                         <tr key={p.id}>
                             <td>{p.nome}</td>
                             <td>{p.preco}</td>
-                            <td><button>Editar</button></td>
+                            <td> <Link to={`/editar/produtos/${p.id}`}>Editar</Link> </td>
                         </tr>
                     ))}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan={3}>Total: R$ {listaDeProdutos.reduce((ac, p) => ac + p.preco, 0)}</td>
+                        <td colSpan={3}>Total: R$ {produtos.reduce((ac, p) => ac + p.preco, 0)}</td>
                     </tr>
                 </tfoot>
-            </table>
+            </MinhaTabela>
         </div>
     );
 }
