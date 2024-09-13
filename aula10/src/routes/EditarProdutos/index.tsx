@@ -39,7 +39,7 @@ export default function EditarProdutos(){
 
     return (
         <div>
-            <h1>Editar Produtos</h1>
+            <h1>Editar Produtossss</h1>
             <div>
                 <p>Parâmetro que veio do componente produto! : {id}</p>
                 <form onSubmit={handleSubmit}>
